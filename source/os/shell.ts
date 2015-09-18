@@ -79,6 +79,24 @@ module TSOS {
                                   "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
 
+            // whereami
+            sc = new ShellCommand(this.shellWhereamI,
+                                "whereami",
+                                "- Tells you where you are the planet");
+            this.commandList[this.commandList.length] = sc;
+
+            //date
+            sc = new ShellCommand(this.shellDate,
+                                "date",
+                                "- Tells you the current date");
+            this.commandList[this.commandList.length] = sc;
+
+            //special command
+            sc = new ShellCommand(this.shellSpecial,
+                                "special",
+                                "- This is a special command");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -286,6 +304,14 @@ module TSOS {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
         }
-
-    }
+        public shellWhereamI(args) {
+            _StdOut.putText("The planet of Daniel Craig");
+            }
+        public shellDate(args) {
+            _StdOut.putText(Date());
+        }
+        public shellSpecial(args) {
+            _StdOut.putText("Something Special is going to happen once I figure it out")
+        }
+        }
 }

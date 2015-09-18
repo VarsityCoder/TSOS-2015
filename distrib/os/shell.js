@@ -49,6 +49,12 @@ var TSOS;
             // prompt <string>
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
+            sc = new TSOS.ShellCommand(this.shellWhereamI, "whereami", "- Tells you where you are the planet");
+            this.commandList[this.commandList.length] = sc;
+            sc = new TSOS.ShellCommand(this.shellDate, "date", "- Tells you the current date");
+            this.commandList[this.commandList.length] = sc;
+            sc = new TSOS.ShellCommand(this.shellSpecial, "special", "- This is a special command");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             //
@@ -245,6 +251,15 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        };
+        Shell.prototype.shellWhereamI = function (args) {
+            _StdOut.putText("The planet of Daniel Craig");
+        };
+        Shell.prototype.shellDate = function (args) {
+            _StdOut.putText(Date());
+        };
+        Shell.prototype.shellSpecial = function (args) {
+            _StdOut.putText("Something Special is going to happen once I figure it out");
         };
         return Shell;
     })();

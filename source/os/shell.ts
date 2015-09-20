@@ -97,6 +97,11 @@ module TSOS {
                                 "- This is a special command");
             this.commandList[this.commandList.length] = sc;
 
+            sc = new ShellCommand(this.shellStatus,
+                                "status",
+                                "<string> - Sets the status message");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -312,6 +317,14 @@ module TSOS {
         }
         public shellSpecial(args) {
             _StdOut.putText("Something Special is going to happen once I figure it out")
+        }
+        public shellStatus(args) {
+        if (args.length > 0) {
+            document.getElementById("divStatusBar").innerHTML = args[0];
+        }
+            else {
+            _StdOut.putText("Please input a Status Message");
+        }
         }
         }
 }

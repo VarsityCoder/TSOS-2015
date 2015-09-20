@@ -49,11 +49,16 @@ var TSOS;
             // prompt <string>
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.");
             this.commandList[this.commandList.length] = sc;
+            // whereami
             sc = new TSOS.ShellCommand(this.shellWhereamI, "whereami", "- Tells you where you are the planet");
             this.commandList[this.commandList.length] = sc;
+            //date
             sc = new TSOS.ShellCommand(this.shellDate, "date", "- Tells you the current date");
             this.commandList[this.commandList.length] = sc;
+            //special command
             sc = new TSOS.ShellCommand(this.shellSpecial, "special", "- This is a special command");
+            this.commandList[this.commandList.length] = sc;
+            sc = new TSOS.ShellCommand(this.shellStatus, "status", "<string> - Sets the status message");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -260,6 +265,14 @@ var TSOS;
         };
         Shell.prototype.shellSpecial = function (args) {
             _StdOut.putText("Something Special is going to happen once I figure it out");
+        };
+        Shell.prototype.shellStatus = function (args) {
+            if (args.length > 0) {
+                document.getElementById("divStatusBar").innerHTML = args[0];
+            }
+            else {
+                _StdOut.putText("Please input a Status Message");
+            }
         };
         return Shell;
     })();

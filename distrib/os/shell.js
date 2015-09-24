@@ -278,12 +278,14 @@ var TSOS;
             commandHistory.push("date");
         };
         Shell.prototype.shellSpecial = function (args) {
-            _StdOut.putText("Something Special is going to happen once I figure it out");
+            _StdOut.putText("Your Special");
             commandHistory.push("special");
         };
         Shell.prototype.shellStatus = function (args) {
             if (args.length > 0) {
-                document.getElementById("divStatusBar").innerHTML = args[0];
+                document.getElementById("divStatusBar").innerHTML = "";
+                for (var x = 0; x < args.length; x++)
+                    document.getElementById("divStatusBar").innerHTML = document.getElementById("divStatusBar").innerHTML + " " + args[x];
             }
             else {
                 _StdOut.putText("Please input a Status Message");
@@ -291,8 +293,7 @@ var TSOS;
             commandHistory.push("status");
         };
         Shell.prototype.shellBSOD = function (args) {
-            var Screen = document.getElementById("display");
-            commandHistory.push("bsod");
+            globalCanvasChangeBoolean = true;
         };
         return Shell;
     })();

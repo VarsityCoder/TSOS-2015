@@ -30,6 +30,17 @@
 
    <!-- Other Routines -->
    <script type="text/javascript" src="distrib/utils.js"></script>
+<script>
+    if(globalCanvasChangeBoolean = true) {
+        function changeCanvas() {
+                var c = document.getElementById("display");
+                var ctx = c.getContext("2d");
+                ctx.fillStyle = "blue";
+                ctx.fill();
+                globalCanvasChangeBoolean = false;
+            }
+    }
+</script>
    <!-- Uncomment this line below to enable GLaDOS testing -->
 <comment> <script type="text/javascript" src="http://www.labouseur.com/courses/os/projects/glados.js"></script>
     </head> </comment>
@@ -76,7 +87,7 @@
               width="500px"
               height="500px"
               tabindex="3"
-              fillStyle ="Blue">
+              fillstyle="Blue">
       </canvas>
    </div>
 

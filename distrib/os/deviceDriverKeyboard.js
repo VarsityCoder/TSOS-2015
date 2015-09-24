@@ -28,6 +28,7 @@ var TSOS;
         };
         DeviceDriverKeyboard.prototype.krnKbdDispatchKeyPress = function (params) {
             // Parse the params.    TODO: Check that the params are valid and osTrapError if not.
+            var x = 0;
             var keyCode = params[0];
             var isShifted = params[1];
             _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
@@ -50,6 +51,18 @@ var TSOS;
                 (keyCode == 13)) {
                 chr = String.fromCharCode(keyCode);
                 _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 38) {
+                for (x; x >= 0; x--) {
+                    _StdOut.putText(commandHistory[x]);
+                    _StdOut.reset();
+                }
+            }
+            else if (keyCode == 40) {
+                for (x; x >= 0; x++) {
+                    _StdOut.putText(commandHistory[x]);
+                    _StdOut.reset();
+                }
             }
         };
         return DeviceDriverKeyboard;

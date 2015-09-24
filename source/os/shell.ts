@@ -96,10 +96,16 @@ module TSOS {
                                 "special",
                                 "- This is a special command");
             this.commandList[this.commandList.length] = sc;
-
+            // status command
             sc = new ShellCommand(this.shellStatus,
                                 "status",
                                 "<string> - Sets the status message");
+            this.commandList[this.commandList.length] = sc;
+
+            //Blue Screen of Death Command, will also run with Kernel error
+            sc = new ShellCommand(this.shellBSOD,
+                                "bsod",
+                                "This will make canvas blue and shut down");
             this.commandList[this.commandList.length] = sc;
 
             // ps  - list the running processes and their IDs
@@ -218,6 +224,7 @@ module TSOS {
             _SarcasticMode = true;
         }
 
+
         public shellApology() {
            if (_SarcasticMode) {
               _StdOut.putText("I think we can put our differences behind us.");
@@ -231,6 +238,7 @@ module TSOS {
 
         public shellVer(args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
+            commandHistory.push("ver");
         }
 
         public shellHelp(args) {
@@ -239,18 +247,21 @@ module TSOS {
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
+            commandHistory.push();
         }
 
         public shellShutdown(args) {
              _StdOut.putText("Shutting down...");
              // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
+            commandHistory.push(this.commandList);
             // TODO: Stop the final prompt from being displayed.  If possible.  Not a high priority.  (Damn OCD!)
         }
 
         public shellCls(args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
+            commandHistory.push(this.commandList);
         }
 
         public shellMan(args) {
@@ -279,11 +290,13 @@ module TSOS {
                         } else {
                             _Trace = true;
                             _StdOut.putText("Trace ON");
+                            commandHistory.push(this.commandList);
                         }
                         break;
                     case "off":
                         _Trace = false;
                         _StdOut.putText("Trace OFF");
+                        commandHistory.push(this.commandList);
                         break;
                     default:
                         _StdOut.putText("Invalid arguement.  Usage: trace <on | off>.");
@@ -291,6 +304,7 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: trace <on | off>");
             }
+
         }
 
         public shellRot13(args) {
@@ -300,6 +314,7 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
+            commandHistory.push("rot13");
         }
 
         public shellPrompt(args) {
@@ -308,23 +323,32 @@ module TSOS {
             } else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+            commandHistory.push("prompt");
         }
         public shellWhereamI(args) {
             _StdOut.putText("The planet of Daniel Craig");
+            commandHistory.push("whereami");
             }
         public shellDate(args) {
             _StdOut.putText(Date());
+            commandHistory.push("date");
         }
         public shellSpecial(args) {
             _StdOut.putText("Something Special is going to happen once I figure it out")
+            commandHistory.push("special");
         }
         public shellStatus(args) {
-        if (args.length > 0) {
-            document.getElementById("divStatusBar").innerHTML = args[0];
+            if (args.length > 0) {
+                document.getElementById("divStatusBar").innerHTML = args[0];
         }
             else {
             _StdOut.putText("Please input a Status Message");
         }
+            commandHistory.push("status");
+        }
+        public shellBSOD(args) {
+            var Screen = document.getElementById("display");
+            commandHistory.push("bsod");
         }
         }
 }

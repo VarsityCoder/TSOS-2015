@@ -27,6 +27,7 @@ module TSOS {
 
         public krnKbdDispatchKeyPress(params) {
             // Parse the params.    TODO: Check that the params are valid and osTrapError if not.
+            var x = 0;
             var keyCode = params[0];
             var isShifted = params[1];
             _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
@@ -34,7 +35,7 @@ module TSOS {
             // Check to see if we even want to deal with the key that was pressed.
             if (((keyCode >= 65) && (keyCode <= 90)) ||   // A..Z
                 ((keyCode >= 97) && (keyCode <= 123))
-            ) {  // a..z
+            ){  // a..z
 
                 // Determine the character we want to display.
                 // Assume it's lowercase...
@@ -50,6 +51,18 @@ module TSOS {
                         (keyCode == 13)) {                       // enter
                 chr = String.fromCharCode(keyCode);
                 _KernelInputQueue.enqueue(chr);
+            }
+            else if (keyCode == 38) {
+                for(x; x>=0 ; x--) {
+                    _StdOut.putText(commandHistory[x]);
+                    _StdOut.reset();
+                }
+            }
+            else if (keyCode == 40) {
+                for (x; x>=0; x++) {
+                    _StdOut.putText(commandHistory[x]);
+                    _StdOut.reset();
+                }
             }
         }
     }

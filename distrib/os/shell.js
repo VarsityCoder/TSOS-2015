@@ -58,7 +58,11 @@ var TSOS;
             //special command
             sc = new TSOS.ShellCommand(this.shellSpecial, "special", "- This is a special command");
             this.commandList[this.commandList.length] = sc;
+            // status command
             sc = new TSOS.ShellCommand(this.shellStatus, "status", "<string> - Sets the status message");
+            this.commandList[this.commandList.length] = sc;
+            //Blue Screen of Death Command, will also run with Kernel error
+            sc = new TSOS.ShellCommand(this.shellBSOD, "bsod", "This will make canvas blue and shut down");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -181,6 +185,7 @@ var TSOS;
         };
         Shell.prototype.shellVer = function (args) {
             _StdOut.putText(APP_NAME + " version " + APP_VERSION);
+            commandHistory.push("ver");
         };
         Shell.prototype.shellHelp = function (args) {
             _StdOut.putText("Commands:");
@@ -188,16 +193,19 @@ var TSOS;
                 _StdOut.advanceLine();
                 _StdOut.putText("  " + _OsShell.commandList[i].command + " " + _OsShell.commandList[i].description);
             }
+            commandHistory.push();
         };
         Shell.prototype.shellShutdown = function (args) {
             _StdOut.putText("Shutting down...");
             // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
+            commandHistory.push(this.commandList);
             // TODO: Stop the final prompt from being displayed.  If possible.  Not a high priority.  (Damn OCD!)
         };
         Shell.prototype.shellCls = function (args) {
             _StdOut.clearScreen();
             _StdOut.resetXY();
+            commandHistory.push(this.commandList);
         };
         Shell.prototype.shellMan = function (args) {
             if (args.length > 0) {
@@ -226,11 +234,13 @@ var TSOS;
                         else {
                             _Trace = true;
                             _StdOut.putText("Trace ON");
+                            commandHistory.push(this.commandList);
                         }
                         break;
                     case "off":
                         _Trace = false;
                         _StdOut.putText("Trace OFF");
+                        commandHistory.push(this.commandList);
                         break;
                     default:
                         _StdOut.putText("Invalid arguement.  Usage: trace <on | off>.");
@@ -248,6 +258,7 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: rot13 <string>  Please supply a string.");
             }
+            commandHistory.push("rot13");
         };
         Shell.prototype.shellPrompt = function (args) {
             if (args.length > 0) {
@@ -256,15 +267,19 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+            commandHistory.push("prompt");
         };
         Shell.prototype.shellWhereamI = function (args) {
             _StdOut.putText("The planet of Daniel Craig");
+            commandHistory.push("whereami");
         };
         Shell.prototype.shellDate = function (args) {
             _StdOut.putText(Date());
+            commandHistory.push("date");
         };
         Shell.prototype.shellSpecial = function (args) {
             _StdOut.putText("Something Special is going to happen once I figure it out");
+            commandHistory.push("special");
         };
         Shell.prototype.shellStatus = function (args) {
             if (args.length > 0) {
@@ -273,6 +288,11 @@ var TSOS;
             else {
                 _StdOut.putText("Please input a Status Message");
             }
+            commandHistory.push("status");
+        };
+        Shell.prototype.shellBSOD = function (args) {
+            var Screen = document.getElementById("display");
+            commandHistory.push("bsod");
         };
         return Shell;
     })();

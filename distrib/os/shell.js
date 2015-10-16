@@ -66,6 +66,8 @@ var TSOS;
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "Loads the hex characters in the program input");
+            this.commandList[this.commandList.length] = sc;
             //
             // Display the initial prompt.
             this.putPrompt();
@@ -294,6 +296,25 @@ var TSOS;
         };
         Shell.prototype.shellBSOD = function (args) {
             globalCanvasChangeBoolean = true;
+        };
+        Shell.prototype.shellLoad = function () {
+            var userText = _ProgramInput.value.toString();
+            var isValid = true;
+            for (var i = 0; i < userText.length; i++) {
+                var char = userText.charCodeAt(i);
+                if ((char >= 48 && char <= 57) || (char >= 65 && char <= 70) || (char == 32)) {
+                    isValid = true;
+                }
+                else {
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                _StdOut.putText("Program validated");
+            }
+            else {
+                _StdOut.putText("Program not validated. Must use spaces, numbers 0-9 and A-F only");
+            }
         };
         return Shell;
     })();

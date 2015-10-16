@@ -42,7 +42,7 @@ module TSOS {
             // Clear the log text box.
             // Use the TypeScript cast to HTMLInputElement
             (<HTMLInputElement> document.getElementById("taHostLog")).value="";
-
+            _ProgramInput =<HTMLTextAreaElement>document.getElementById("taProgramInput");
             // Set focus on the start button.
             // Use the TypeScript cast to HTMLInputElement
             (<HTMLInputElement> document.getElementById("btnStartOS")).focus();

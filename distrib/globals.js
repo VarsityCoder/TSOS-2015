@@ -18,6 +18,7 @@ var TIMER_IRQ = 0; // Pages 23 (timer), 9 (interrupts), and 561 (interrupt prior
 var KEYBOARD_IRQ = 1;
 var commandHistory = [];
 var globalCanvasChangeBoolean = false;
+var _ProgramInput = document.getElementById("taProgramInput");
 //
 // Global Variables
 // TODO: Make a global object and use that instead of the "_" naming convention in the global namespace.

@@ -23,6 +23,7 @@ const KEYBOARD_IRQ: number = 1;
 var commandHistory = [];
 
 var globalCanvasChangeBoolean = false;
+var _ProgramInput = <HTMLTextAreaElement>document.getElementById("taProgramInput");
 
 
 //

@@ -49,7 +49,12 @@ module TSOS {
                 } else if ((chr === String.fromCharCode(tabIncrease))) {
                     tabIncrease = tabIncrease+4;
                     alert(chr);
-                } else {
+                } else if(chr === String.fromCharCode(8)) {
+                        var characterRemoval = this.buffer.charAt(this.buffer.length - 1)
+                        this.buffer = this.buffer.charAt(this.buffer.length - 1);
+                        this.Backspace(characterRemoval);
+                    }
+                else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
                     this.putText(chr);
@@ -98,6 +103,14 @@ module TSOS {
                                         _DrawingContext.fontDescent(this.currentFont,this.currentFontSize) +
                                         _FontHeightMargin;
 
+            }
+        }
+        public Backspace(char) {
+            var characterLength = _DrawingContext.measureText(this.currentFont, this.currentFontSize, char);
+            var verticalHeight  = _DefaultFontSize + _FontHeightMargin;
+            _DrawingContext.clearRect(this.currentXPosition - characterLength, ((this.currentYPosition - verticalHeight) + 5 ), characterLength, verticalHeight);
+            if(this.currentXPosition > 0) {
+                this.currentXPosition = this.currentXPosition - characterLength;
             }
         }
     }

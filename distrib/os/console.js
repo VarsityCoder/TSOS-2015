@@ -50,6 +50,11 @@ var TSOS;
                     tabIncrease = tabIncrease + 4;
                     alert(chr);
                 }
+                else if (chr === String.fromCharCode(8)) {
+                    var characterRemoval = this.buffer.charAt(this.buffer.length - 1);
+                    this.buffer = this.buffer.charAt(this.buffer.length - 1);
+                    this.Backspace(characterRemoval);
+                }
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
@@ -94,6 +99,14 @@ var TSOS;
                 this.currentYPosition -= _DefaultFontSize +
                     _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                     _FontHeightMargin;
+            }
+        };
+        Console.prototype.Backspace = function (char) {
+            var characterLength = _DrawingContext.measureText(this.currentFont, this.currentFontSize, char);
+            var verticalHeight = _DefaultFontSize + _FontHeightMargin;
+            _DrawingContext.clearRect(this.currentXPosition - characterLength, ((this.currentYPosition - verticalHeight) + 5), characterLength, verticalHeight);
+            if (this.currentXPosition > 0) {
+                this.currentXPosition = this.currentXPosition - characterLength;
             }
         };
         return Console;

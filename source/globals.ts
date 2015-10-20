@@ -30,6 +30,7 @@ var _ProgramInput = <HTMLTextAreaElement>document.getElementById("taProgramInput
 // Global Variables
 // TODO: Make a global object and use that instead of the "_" naming convention in the global namespace.
 //
+
 var _CPU: TSOS.Cpu;  // Utilize TypeScript's type annotation system to ensure that _CPU is an instance of the Cpu class.
 
 var _OSclock: number = 0;  // Page 23.
@@ -53,7 +54,10 @@ var _KernelBuffers: any[] = null;   // when clearly 'any' is not what we want. T
 // Standard input and output
 var _StdIn;    // Same "to null or not to null" issue as above.
 var _StdOut;
-
+var _MemoryArrayUser = null;
+var _MemoryArrayIndex = null;
+var _MainMemoryElement = null;
+var _MemoryArray = Array.apply(null, new Array(256).map)(String.prototype.valueOf(),"00");
 // UI
 var _Console: TSOS.Console;
 var _OsShell: TSOS.Shell;

@@ -54,7 +54,7 @@ var _KernelBuffers: any[] = null;   // when clearly 'any' is not what we want. T
 // Standard input and output
 var _StdIn;    // Same "to null or not to null" issue as above.
 var _StdOut;
-var _MemoryArrayUser = null;
+var _MemoryArrayUser = new TSOS.memory();
 var _MemoryArrayIndex = null;
 var _MainMemoryElement = null;
 var _MemoryArray = Array.apply(null, new Array(256).map)(String.prototype.valueOf(),"00");

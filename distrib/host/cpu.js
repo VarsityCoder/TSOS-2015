@@ -1,4 +1,5 @@
-///<reference path="../globals.ts" />
+///<reference path="../globals.ts"/>
+///<reference path="memory.ts"/>
 /* ------------
      CPU.ts
 
@@ -43,6 +44,14 @@ var TSOS;
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
             this.OPCommands(_MemoryArray[this.PC]);
+        };
+        Cpu.prototype.updateConsole = function () {
+            _MainMemoryElement = _MainMemoryElement + "\n" + "\n";
+            _MainMemoryElement = _MainMemoryElement + "PC: " + this.PC + "\n";
+            _MainMemoryElement = _MainMemoryElement + "Acc: " + this.Acc + "\n";
+            _MainMemoryElement = _MainMemoryElement + "Xreg: " + this.Xreg + "\n";
+            _MainMemoryElement = _MainMemoryElement + "Yreg: " + this.Yreg + "\n";
+            _MainMemoryElement = _MainMemoryElement + "Zflag: " + this.Zflag + "\n";
         };
         Cpu.prototype.loadInits = function (PC, Acc, Xreg, Yreg, Zflag) {
             this.PC = PC;
@@ -120,7 +129,6 @@ var TSOS;
                 case "00": {
                     this.isExecuting = false;
                     _MemoryArrayUser.memoryUpdater();
-                    document.getElementById("btnHalt").disabled = true;
                     break;
                 }
                 case "EC": {

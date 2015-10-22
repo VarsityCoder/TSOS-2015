@@ -1,5 +1,5 @@
 ///<reference path="../globals.ts"/>
-///<reference path ="memory.ts"/>
+///<reference path="memory.ts"/>
 
 /* ------------
      CPU.ts
@@ -44,6 +44,15 @@ module TSOS {
             // Do the real work here. Be sure to set this.isExecuting appropriately.
             this.OPCommands(_MemoryArray[this.PC]);
         }
+
+        public updateConsole() {
+        _MainMemoryElement = _MainMemoryElement + "\n" + "\n";
+        _MainMemoryElement = _MainMemoryElement + "PC: " + this.PC + "\n";
+        _MainMemoryElement = _MainMemoryElement + "Acc: " + this.Acc  + "\n";
+        _MainMemoryElement = _MainMemoryElement + "Xreg: " + this.Xreg + "\n";
+        _MainMemoryElement = _MainMemoryElement + "Yreg: " + this.Yreg + "\n";
+        _MainMemoryElement = _MainMemoryElement + "Zflag: " + this.Zflag +"\n";
+    }
         public loadInits(PC, Acc, Xreg, Yreg, Zflag)
         {
             this.PC = PC;
@@ -111,7 +120,7 @@ module TSOS {
                     this.PC = parseInt("0x" + _MemoryArray[this.PC + 2] + _MemoryArray[this.PC + 1]);
                     this.Yreg = parseInt("0x" + _MemoryArray[this.PC]);
                     this.PC = PreOP + 3;
-                    _MemoryArrayUser.cpu.memoryUpdater();
+                    _MemoryArrayUser.memoryUpdater();
                     break;
                 }
                 case "EA": {
@@ -121,7 +130,6 @@ module TSOS {
                 case "00": {
                     this.isExecuting = false;
                     _MemoryArrayUser.memoryUpdater();
-                    document.getElementById("btnHalt").disabled = true;
                     break;
                 }
                 case "EC": {

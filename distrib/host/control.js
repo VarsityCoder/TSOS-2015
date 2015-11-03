@@ -37,7 +37,6 @@ var TSOS;
             // Clear the log text box.
             // Use the TypeScript cast to HTMLInputElement
             document.getElementById("taHostLog").value = "";
-            _ProgramInput = document.getElementById("taProgramInput");
             // Set focus on the start button.
             // Use the TypeScript cast to HTMLInputElement
             document.getElementById("btnStartOS").focus();
